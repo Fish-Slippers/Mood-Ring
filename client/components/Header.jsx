@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Styling for the whole header
@@ -36,13 +36,13 @@ class Header extends Component {
     return (
       !loggedIn ? (
         <MainDiv>
-          <AuthButton href="/user/register">Register</AuthButton>
-          <AuthButton href="/user/login">Login</AuthButton>
+          <Link to="/user/register">Register</Link>
+          <Link to="/user/login">Login</Link>
           <TitleText>m☯☯d ring</TitleText>
         </MainDiv>
         ) : (
         <MainDiv>
-          <AuthButton href="/logout">Logout</AuthButton>
+          <Link to="/logout">Logout</Link>
           <TitleText>m☯☯d ring 2.0</TitleText>
         </MainDiv>
         )

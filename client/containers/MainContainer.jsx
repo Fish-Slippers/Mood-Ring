@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
   return {
     loggedIn: state.userState.loggedIn,
     currentUser: state.userState.currentUser,
+    quote: state.userState.quote,
   };
 };
 
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   register: (username, password) => dispatch(actions.register(username, password)),
   login: (username, password) => dispatch(actions.login(username, password)),
   logout: () => dispatch(actions.logout()),
+  getQuote: (quote) => dispatch(actions.getQuote(quote)),
 });
 
 class MainContainer extends Component {
@@ -28,6 +30,10 @@ class MainContainer extends Component {
     this.onRegister = this.onRegister.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
+    this.onGetQuote = this.onGetQuote.bind(this);
+  }
+  componentDidMount() {
+    this.props.onGetQuote();
   }
   onRegister(e) {
     e.preventDefault();
@@ -45,6 +51,10 @@ class MainContainer extends Component {
     e.preventDefault();
     this.props.logout();
   }
+  onGetQuote(e) {
+    e.preventDefault();
+    this.props.getQuote();
+  }
 
   render() {
     return (
@@ -52,7 +62,7 @@ class MainContainer extends Component {
             <Header onLogout={ this.onLogout } loggedIn={ this.props.loggedIn }/>
             <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
             <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin }/> } />
-            <Route exact path="/" render={() => <Landing onChangeQuote={this.onChangeQuote} quoteRandom={ this.props.quoteRandom }/> } />
+            <Route exact path="/" render={() => <Landing onGetQuote={this.onGetQuote} quote={ this.props.quote }/> } />
             <Route exact path="/user/mood" component={MoodContainer} />
             <Footer />
         </Router>
