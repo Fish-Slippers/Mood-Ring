@@ -15,17 +15,21 @@ import '../style.css';
 
 //The main body styling
 const MainDiv = styled.div`
+  position: relative;
   text-align: center;
   width: 100%;
   height: 650px;
   margin-top: 10px;
   font-family: 'Assistant', sans-serif;
+  z-index: 999;
 `;
 
 const Response = styled.div`
   width: 100%;
-  height: 20%;
   text-align: center;
+  font-size: 1.8rem;
+  margin: 12px;
+  color: #fff;
 `;
 
 const SelectStyle = styled.select`
@@ -38,13 +42,25 @@ const SelectStyle = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  margin: auto;
-  text-decoration: none;
+  text-transform: uppercase;
+  outline: 0;
+  background: #3042CF;
+  color: #FFF;
+  width: 100px;
+  border: 0;
   border-radius: 20px;
-  opacity: 0.6%
-  font-size: 20px;
+  margin-top: 10px;
+  padding: 10px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+
+  &:hover, 
+  &:active, 
   &:focus {
-    outline: none;
+      background: #3042C0;
   }`;
 
 class MoodContainer extends Component {
@@ -60,12 +76,17 @@ class MoodContainer extends Component {
 
   moodDataSubmit(e) {
     e.preventDefault();
-    const username = this.props.currentUser;
+    const username = this.props.currentUser.username;
     const mood = e.target[0].value;
     const date = e.target[1].value;
     /* Adds our mood input data to the database and receives a motivation quote 
      * related to that mood back from the database
     */
+    const user = {
+      username,
+      mood, 
+      date
+    };
     fetch('/user/mood', {
       method: 'POST',
       headers: {
@@ -85,7 +106,7 @@ class MoodContainer extends Component {
   }
 
   render() {
-    const cur = this.props.currentUser; 
+    const cur = this.props.currentUser.username; 
     return (
       <MainDiv>
         <h1>How are you feeling today {cur}?</h1>
