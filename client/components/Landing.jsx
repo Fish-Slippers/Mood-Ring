@@ -1,33 +1,60 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 //Styling for the whole body
 const MainDiv = styled.div`
+  position: relative;
   width: 100%;
-  height: 650px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
   font-family: 'Assistant', sans-serif;
   text-align: center;
   margin-top: 10px;
+  z-index: 999;
 `;
 
 //Styling for the daily quote
 const Quote = styled.h1`
   font-style: italic;
   font-family: 'Assistant', sans-serif;
-  margin-top: 80px;
+  margin: 30px 0;
+  width: 800px;
+  margin: 0 auto;
+  color: #eee;
 `;
 
 //Styling for the log in button
-const LoginButton = styled.button`
+const Login = styled(Link)`
+  display: block;
   text-decoration: none;
-  color: black;
+  color: #fff;
   font-size: 20px;
-  margin: 3px;
-  width: 18%;
-  height: 7%;
-  &:focus {
-    outline: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  width: 200px;
+  margin: 20px auto;
+  border-radius: 20px;
+  background: #3042CF;
+  opacity: 1;
+  outline: none;
+  border: none;
+  &:hover {
+    background: #3042C0;
+  }
+`;
+
+const Logo = styled(Link)`
+  margin: 2px;
+  font-family: 'Assistant', sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 7rem;
+  color: #fff;
+  &:hover {
+    opacity: 0.7;
   }
 `;
 
@@ -63,8 +90,9 @@ class Landing extends Component {
   render() {
     return (
       <MainDiv>
+        <Logo to="/">m☯☯d</Logo>
         <Quote>{this.state.quote}</Quote>
-        <LoginButton href="/register">Start Today</LoginButton>
+        <Login to="/user/register">Start Today</Login>
       </MainDiv>
     );
   }

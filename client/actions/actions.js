@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-export function register(username, password) {
+export const register = (username, password) => {
   const config = {
     method: 'POST',
     headers: {
@@ -19,9 +19,9 @@ export function register(username, password) {
         payload: data,
       });
     });
-}
+};
 
-export function login(username, password) {
+export const login = (username, password) => {
   const config = {
     method: 'POST',
     headers: {
@@ -40,10 +40,9 @@ export function login(username, password) {
         payload: data,
       });
     });
-}
+};
 
-export function logout() {
-  return (dispatch) => fetch('/logout')
+export const logout = () => (dispatch) => fetch('/logout')
     .then((res) => res.json())
     .then((data) => {
       dispatch({
@@ -51,9 +50,9 @@ export function logout() {
         payload: data,
       });
     });
-}
 
 export function getQuote(quote) {
+// Getting Images from API
   const config = {
     method: 'POST',
     headers: {
@@ -82,10 +81,32 @@ export function getQuote(quote) {
       });
     });
 }
+export const setBackgroundImage = (mood) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      mood,
+    }),
+  };
+  return (dispatch) => fetch('/api/images', config)
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: types.SET_BACKGROUND,
+        payload: {
+          mood,
+          imageResults: data,
+        },
+      });
+    });
+};
 
 /* MOOD DATA */
 
-export const sendMoodData = (username, date, mood) => (dispatch) => {
+export const sendMoodData = (username, date, mood) => {
   const config = {
     method: 'POST',
     headers: {
@@ -97,7 +118,7 @@ export const sendMoodData = (username, date, mood) => (dispatch) => {
       mood,
     }),
   };
-  fetch('/user/mood', config)
+  return (dispatch) => fetch('/user/mood', config)
     .then((response) => response.json())
     .then((data) => dispatch({
       type: types.GET_MOOD,

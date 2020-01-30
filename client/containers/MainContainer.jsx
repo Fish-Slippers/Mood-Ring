@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../components/Header.jsx';
+import Background from '../components/Background.jsx';
 import Register from '../components/Register.jsx';
 import Login from '../components/Login.jsx';
 import Landing from '../components/Landing.jsx';
@@ -9,19 +10,20 @@ import Footer from '../components/Footer.jsx';
 import * as actions from '../actions/actions.js';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => {
-  return {
-    loggedIn: state.userState.loggedIn,
-    currentUser: state.userState.currentUser,
-    quote: state.userState.quote,
-  };
-};
+const mapStateToProps = (state) => ({
+  loggedIn: state.userState.loggedIn,
+  currentUser: state.userState.currentUser,
+  currentImage: state.moodState.currentImage,
+  imageResults: state.moodState.imageResults,
+  quote: state.userState.quote,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   register: (username, password) => dispatch(actions.register(username, password)),
   login: (username, password) => dispatch(actions.login(username, password)),
   logout: () => dispatch(actions.logout()),
   getQuote: (quote) => dispatch(actions.getQuote(quote)),
+  setBackgroundImage: (mood) => dispatch(actions.setBackgroundImage(mood)),
 });
 
 class MainContainer extends Component {
@@ -34,6 +36,9 @@ class MainContainer extends Component {
   }
   componentDidMount() {
     this.props.onGetQuote();
+  }
+  componentDidMount() {
+    this.props.setBackgroundImage('sad');
   }
   onRegister(e) {
     e.preventDefault();
@@ -58,14 +63,15 @@ class MainContainer extends Component {
 
   render() {
     return (
-        <Router>
-            <Header onLogout={ this.onLogout } loggedIn={ this.props.loggedIn }/>
-            <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
-            <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin }/> } />
-            <Route exact path="/" render={() => <Landing onGetQuote={this.onGetQuote} quote={ this.props.quote }/> } />
-            <Route exact path="/user/mood" component={MoodContainer} />
-            <Footer />
-        </Router>
+      <Router>
+        <Header onLogout={ this.onLogout } loggedIn={ this.props.loggedIn } />
+        <Background currentImage={this.props.currentImage}/>
+        <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
+        <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } />} />
+        <Route exact path="/" render={() => <Landing onChangeQuote={this.onChangeQuote} quoteRandom={ this.props.quoteRandom }/> } />
+        <Route exact path="/user/mood" component={MoodContainer} />
+        <Footer />
+      </Router>
     )
   }
 }
