@@ -14,6 +14,10 @@ body {
   color: rgb(208, 209, 236);
 }
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 /* Date Input Styling */
 .date-picker {
   padding: 12px;

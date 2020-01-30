@@ -59,8 +59,8 @@ class MainContainer extends Component {
       <Router>
         <Header onLogout={ this.onLogout } loggedIn={ this.props.loggedIn } />
         <Background currentImage={this.props.currentImage}/>
-        <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
-        <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } />} />
+        <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister } currentUser={this.props.currentUser} /> } />
+        <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } currentUser={this.props.currentUser} />} />
         <Route exact path="/" render={() => <Landing quote={ this.props.quote }/> } />
         <Route exact path="/user/mood" component={MoodContainer} />
         <Footer />

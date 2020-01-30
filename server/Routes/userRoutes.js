@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const userController = require('../Controllers/userController.js');
+const userController = require('../Controllers/userController');
 const moodController = require('../Controllers/moodController');
 
 // functionality for creating a new user and storing user in database

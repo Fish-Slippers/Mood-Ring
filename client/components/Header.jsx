@@ -55,10 +55,10 @@ class Header extends Component {
           </div>
         </Nav>
         ) : (
-        <MainDiv>
+        <Nav>
           <Logo to="/">m☯☯d</Logo>
           <AuthLink to="/user/logout">Logout</AuthLink>
-        </MainDiv>
+        </Nav>
         )
     )
   }

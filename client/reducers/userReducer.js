@@ -5,7 +5,7 @@ const initialState = {
   loggedIn: false,
 };
 
-const userReducers = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER:
       return {
@@ -32,4 +32,4 @@ const userReducers = (state = initialState, action) => {
   }
 };
 
-export default userReducers;
+export default userReducer;
