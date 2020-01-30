@@ -16,44 +16,7 @@ const mapStateToProps = (state) => ({
   currentImage: state.moodState.currentImage,
   imageResults: state.moodState.imageResults,
   quote: state.moodState.quote,
-  userMoods: [
-    {
-        "date": "2020-01-29T05:00:00.000Z",
-        "mood": "anxious"
-    },
-    {
-        "date": "2020-01-29T05:00:00.000Z",
-        "mood": "anxious"
-    },
-    {
-        "date": "2020-01-29T05:00:00.000Z",
-        "mood": "sad"
-    },
-    {
-        "date": "2020-01-29T05:00:00.000Z",
-        "mood": "happy"
-    },
-    {
-        "date": "2020-01-29T05:00:00.000Z",
-        "mood": "happy"
-    },
-    {
-        "date": "2020-01-30T05:00:00.000Z",
-        "mood": "happy"
-    },
-    {
-        "date": "2020-01-30T05:00:00.000Z",
-        "mood": "happy"
-    },
-    {
-        "date": "2020-01-30T05:00:00.000Z",
-        "mood": "happy"
-    },
-    {
-        "date": "2020-01-30T05:00:00.000Z",
-        "mood": "happy"
-    }
-  ] 
+  userMoods: state.userState.currentUser.userMoods,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -97,10 +60,10 @@ class MainContainer extends Component {
       <Router>
         <Header onLogout={ this.onLogout } loggedIn={ this.props.loggedIn } />
         <Background currentImage={this.props.currentImage}/>
-        <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
-        <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } />} />
+        <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister } currentUser={this.props.currentUser} /> } />
+        <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } currentUser={this.props.currentUser} />} />
         <Route exact path="/" render={() => <Landing quote={ this.props.quote }/> } />
-        <Route exact path="/user/mood" render={() => <MoodContainer userMoods={ this.props.userMoods }/> } />
+        <Route exact path="/user/mood" render={() => <MoodContainer userMoods={ this.props.userMoods } currentUser={this.props.currentUser} /> } />
         <Footer />
       </Router>
     )
