@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-export function register(username, password) {
+export const register = (username, password) => {
   const config = {
     method: 'POST',
     headers: {
@@ -21,7 +21,7 @@ export function register(username, password) {
     });
 }
 
-export function login(username, password) {
+export const login = (username, password) => {
   const config = {
     method: 'POST',
     headers: {
@@ -42,7 +42,7 @@ export function login(username, password) {
     });
 }
 
-export function logout() {
+export const logout = () => {
   return (dispatch) => fetch('/logout')
     .then((res) => res.json())
     .then((data) => {
@@ -52,3 +52,48 @@ export function logout() {
       });
     });
 }
+
+// Getting Images from API
+export const setBackgroundImage = (mood) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ mood }),
+  };
+  return (dispatch) => fetch('/api/images', config)
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: types.SET_BACKGROUND,
+        payload: {
+          mood,
+          imageResults: data,
+        },
+      });
+    });
+};
+
+/* MOOD DATA */
+
+export const sendMoodData = (username, date, mood) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username,
+      date,
+      mood,
+    }),
+  };
+  return (dispatch) => fetch('/user/mood', config)
+    .then((response) => response.json())
+    .then((data) => dispatch({
+      type: types.GET_MOOD,
+      payload: data,
+    }))
+    .catch((err) => console.log(err));
+};

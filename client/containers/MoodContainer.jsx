@@ -9,7 +9,11 @@
 import React from 'react';
 import { Component } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { connect } from 'react-redux';
+import * as actions from '../actions/actions.js';
+
+import '../style.css';
 
 //The main body styling
 const MainDiv = styled.div`
@@ -46,48 +50,32 @@ font-size: 20px;
 }
 `;
 
-const mapStateToProps = (reduxState) => {
+const mapStateToProps = (state) => ({
   //used to bring in the pieces of state that the components on this page will use
-  return {
-    currentUser: reduxState.currentUser
-  };
-};
+    currentUser: state.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendMoodData: (username, date, mood) => dispatch(actions.sendMoodData(username, date, mood)),
+});
 
 class MoodContainer extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       response: ''
     };
 
-    this.sendMood = this.sendMood.bind(this);
+    this.moodDataSubmit = this.moodDataSubmit.bind(this);
   }
 
-  sendMood() {
-    const value = document.getElementById('selector').value;
-
-    const user = {
-      username: this.props.username,
-      mood: value
-    };
-
-    fetch('/mood', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          response: data.response
-        });
-      })
-      .catch((err) => {
-        console.log('Error', err);
-      });
+  moodDataSubmit(e) {
+    e.preventDefault();
+    const username = this.props.currentUser;
+    const mood = e.target[0].value;
+    const date = e.target[1].value;
+    this.props.sendMoodData(username, date, mood);
   }
 
   render() {
@@ -95,6 +83,7 @@ class MoodContainer extends Component {
     return (
       <MainDiv>
         <h1>How are you feeling today {cur}?</h1>
+        <form className="mood" onSubmit={ this.moodDataSubmit }>
         <SelectStyle id="selector">
           <option value="happy">Happy</option>
           <option value="sad">Sad</option>
@@ -106,11 +95,14 @@ class MoodContainer extends Component {
           <option value="distracted">Distracted</option>
         </SelectStyle>
         <br></br>
+        <input type="date" id="date-picker" defaultValue={moment().format("YYYY-MM-DD")}></input>
         <br></br>
         <SubmitButton onClick={this.sendMood}>submit</SubmitButton>
-        <Response className="return-text">{this.state.response}</Response>
-      </MainDiv>
+        </form>
+        <Response className="return-text">{this.state.response}</ Response>
+        <Calendar />
+      </ MainDiv>
     );
   }
 }
-export default connect(mapStateToProps, null)(MoodContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MoodContainer);

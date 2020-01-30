@@ -4,30 +4,42 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Styling for the whole header
-const MainDiv = styled.div`
+const Nav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
   font-family: 'Assistant', sans-serif;
-  text-align: right;
+  position: relative;
+  z-index: 999;
 `;
 
 // Styling for the 'Mood-Ring' title
-const TitleText = styled.p`
-  text-align: center;
+const Logo = styled(Link)`
   margin: 2px;
   font-family: 'Assistant', sans-serif;
   font-weight: bold;
-  font-size: 80px;
+  text-decoration: none;
+  font-size: 2rem;
+  color: #fff;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 // Styling for the Log In button
-const AuthButton = styled(Link)`
+const AuthLink = styled(Link)`
   text-decoration: none;
   font-family: 'Assistant', sans-serif;
   border-radius: 20px;
   font-size: 20px;
   margin: 3px;
-  color: black;
+  color: #fff;
   &:focus {
     outline: none;
+  }
+  &:hover {
+    opacity: 0.7;
   }
 `;
 
@@ -36,15 +48,17 @@ class Header extends Component {
     const { loggedIn } = this.props;
     return (
       !loggedIn ? (
-        <MainDiv>
-          <AuthButton to="/register">Register</AuthButton>
-          <AuthButton to="/login">Login</AuthButton>
-          <TitleText>m☯☯d ring</TitleText>
-        </MainDiv>
+        <Nav>
+          <Logo to="/">m☯☯d</Logo>
+          <div>
+            <AuthLink to="/user/register">Register</AuthLink>
+            <AuthLink to="/user/login">Login</AuthLink>
+          </div>
+        </Nav>
         ) : (
         <MainDiv>
-          <AuthButton href="/logout">Logout</AuthButton>
-          <TitleText>m☯☯d ring 2.0</TitleText>
+          <Logo to="/">m☯☯d</Logo>
+          <AuthLink to="/user/logout">Logout</AuthLink>
         </MainDiv>
         )
     )
