@@ -45,14 +45,16 @@ app.use((req, res, next) => {
 
 app.use('/dist', express.static(path.resolve(__dirname, '../dist/')));
 
+app.get('/test', (req, res) => {
+  res.status(200);
+})
+
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 // conncection for externally hosted mongoDB
-mongoose.connect(process.env.MONGO_URI, () => {
-  console.log('connected to mongoDB');
-})
+mongoose.connect(process.env.MONGO_URI);
 
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
@@ -72,9 +74,9 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log('listening on port', PORT);
-});
+// app.listen(PORT, () => {
+//   console.log('listening on port', PORT);
+// });
 
 
 module.exports = app;

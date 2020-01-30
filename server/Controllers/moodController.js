@@ -49,10 +49,10 @@ moodController.sendUserMoods = (req, res, next) => {
     if (err) return next({ log: err, message: { err: 'Error finding user in moodController.sendUserMoods. Check log' } });
     // intializing variable with user id
     const user_id = response.rows[0].id;
-    const moodQueryString = 'SELECT date, mood FROM calendar where user_id = $1'
+    const moodQueryString = 'SELECT date, mood FROM calendar where user_id = $1';
     db.query(moodQueryString, [user_id], (err, response) => {
       if (err) return next({ log: err, message: { err: 'Error finding user in moodController.sendUserMoods. Check log' } });
-      res.locals.userMoods = [ ...response.rows ]
+      res.locals.userMoods = [ ...response.rows ];
       next();
     })
 })
