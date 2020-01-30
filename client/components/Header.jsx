@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -18,7 +19,7 @@ const TitleText = styled.p`
 `;
 
 // Styling for the Log In button
-const AuthButton = styled.button`
+const AuthButton = styled(Link)`
   text-decoration: none;
   font-family: 'Assistant', sans-serif;
   border-radius: 20px;
@@ -36,8 +37,8 @@ class Header extends Component {
     return (
       !loggedIn ? (
         <MainDiv>
-          <AuthButton href="/register">Register</AuthButton>
-          <AuthButton href="/login">Login</AuthButton>
+          <AuthButton to="/register">Register</AuthButton>
+          <AuthButton to="/login">Login</AuthButton>
           <TitleText>m☯☯d ring</TitleText>
         </MainDiv>
         ) : (
