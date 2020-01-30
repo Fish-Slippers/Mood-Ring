@@ -7,7 +7,8 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/',
   },
 
   // plugins: [new html({
@@ -33,9 +34,10 @@ module.exports = {
     ],
   },
   devServer: {
+    historyApiFallback: true,
     publicPath: '/dist/',
     proxy: {
-      '/': 'http://localhost:3000'
-    }
-  }
+      '/': 'http://localhost:3000',
+    },
+  },
 };

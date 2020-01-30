@@ -38,15 +38,14 @@ const SelectStyle = styled.select`
 `;
 
 const SubmitButton = styled.button`
-margin: auto;
-text-decoration: none;
-border-radius: 20px;
-opacity: 0.6%
-font-size: 20px;
-&:focus {
-  outline: none;
-}
-`;
+  margin: auto;
+  text-decoration: none;
+  border-radius: 20px;
+  opacity: 0.6%
+  font-size: 20px;
+  &:focus {
+    outline: none;
+  }`;
 
 class MoodContainer extends Component {
   constructor(props) {
@@ -64,12 +63,6 @@ class MoodContainer extends Component {
     const username = this.props.currentUser;
     const mood = e.target[0].value;
     const date = e.target[1].value;
-
-    const user = {
-      username: 'nicole',
-      date: date,
-      mood: mood,
-    };
     /* Adds our mood input data to the database and receives a motivation quote 
      * related to that mood back from the database
     */
@@ -92,10 +85,9 @@ class MoodContainer extends Component {
   }
 
   render() {
-
-    const cur = this.props.currentUser;
+    const cur = this.props.currentUser; 
     return (
-      <MainDiv loggedIn="nicole">
+      <MainDiv>
         <h1>How are you feeling today {cur}?</h1>
         <form className="mood" onSubmit={this.moodDataSubmit}>
         <SelectStyle id="selector">
@@ -115,7 +107,7 @@ class MoodContainer extends Component {
         </form>
         <Response className="return-text">{this.state.response}</ Response>
         <Calendar userMoods={ this.props.userMoods }/>
-      </ MainDiv>
+      </MainDiv>
     );
   }
 }

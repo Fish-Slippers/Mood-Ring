@@ -1,9 +1,10 @@
 body {
   font-family: 'Assistant', sans-serif;
-  background-image: url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
-  background-size: cover;
-  background-position: center center;
   text-align: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100vh;
 }
 
 #root {
@@ -11,44 +12,6 @@ body {
   max-width: 100%;
   border-radius: 15px;
   color: rgb(208, 209, 236);
-}
-h1 {
-  color: rgb(208, 209, 236);
-}
-
-.linksDiv {
-  text-align: center;
-}
-
-.login-buttons {
-  font-family: 'Assistant', sans-serif;
-  border-radius: 10px;
-}
-
-button {
-  opacity: 0.6;
-  border-radius: 20px;
-  color: black;
-}
-button:hover {
-  background-color: #ffffff;
-  opacity: 1; /* Green */
-  color: black;
-}
-
-.login-div {
-  text-align: center;
-}
-.login-form {
-  text-align: center;
-}
-
-input {
-  opacity: 0.6;
-}
-.return-text {
-  font-size: 50px;
-  padding-top: 100px;
 }
 
 /* Calendar */
