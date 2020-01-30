@@ -14,8 +14,20 @@ body {
   color: rgb(208, 209, 236);
 }
 
-/* Date Input Styling */
-.date-picker {
-  padding: 12px;
-  border-radius: 20px;
+/* Calendar */
+#calendar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#calendaritem {
+  background-color: white;
+  color: black;
+  margin: 5px;
+  padding: 10px;
+  border: forestgreen;
+  border-width: 2px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px;
 }

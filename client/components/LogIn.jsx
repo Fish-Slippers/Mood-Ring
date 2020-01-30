@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 //The main body styling
@@ -42,9 +42,10 @@ class Login extends Component {
             <h1>Log In</h1>
             <input type="text" placeholder="Username"></input>
             <input type="password" placeholder="Password"></input>
-            <SubmitButton>Register</SubmitButton>
+            <SubmitButton>Login</SubmitButton>
           </div>
         </AuthForm>
+        <Link to="/user/mood">Go to mood</Link>
       </MainDiv>
     )
   }
