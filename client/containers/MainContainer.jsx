@@ -16,6 +16,44 @@ const mapStateToProps = (state) => ({
   currentImage: state.moodState.currentImage,
   imageResults: state.moodState.imageResults,
   quote: state.moodState.quote,
+  userMoods: [
+    {
+        "date": "2020-01-29T05:00:00.000Z",
+        "mood": "anxious"
+    },
+    {
+        "date": "2020-01-29T05:00:00.000Z",
+        "mood": "anxious"
+    },
+    {
+        "date": "2020-01-29T05:00:00.000Z",
+        "mood": "sad"
+    },
+    {
+        "date": "2020-01-29T05:00:00.000Z",
+        "mood": "happy"
+    },
+    {
+        "date": "2020-01-29T05:00:00.000Z",
+        "mood": "happy"
+    },
+    {
+        "date": "2020-01-30T05:00:00.000Z",
+        "mood": "happy"
+    },
+    {
+        "date": "2020-01-30T05:00:00.000Z",
+        "mood": "happy"
+    },
+    {
+        "date": "2020-01-30T05:00:00.000Z",
+        "mood": "happy"
+    },
+    {
+        "date": "2020-01-30T05:00:00.000Z",
+        "mood": "happy"
+    }
+  ] 
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -62,7 +100,7 @@ class MainContainer extends Component {
         <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister } currentUser={this.props.currentUser} /> } />
         <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } currentUser={this.props.currentUser} />} />
         <Route exact path="/" render={() => <Landing quote={ this.props.quote }/> } />
-        <Route exact path="/user/mood" component={MoodContainer} />
+        <Route exact path="/user/mood" render={() => <MoodContainer userMoods={ this.props.userMoods }/> } />
         <Footer />
       </Router>
     )
