@@ -91,7 +91,7 @@ class Landing extends Component {
     return (
       <MainDiv>
         <Logo to="/">m☯☯d</Logo>
-        <Quote>{this.state.quote}</Quote>
+        <Quote>{this.props.quote}</Quote>
         <Login to="/user/register">Start Today</Login>
       </MainDiv>
     );

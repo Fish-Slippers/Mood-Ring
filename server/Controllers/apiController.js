@@ -43,4 +43,23 @@ apiController.getImages = (req, res, next) => {
     }));
 };
 
+function chooseAuthor(quote, array, num) {
+  if (quote.author === null) {
+    return `"${quote.text}" - Jon Gonzalez, ${array[num]}`;
+  }
+  return `"${quote.text}" --${quote.author}`;
+}
+
+apiController.getQuotes = (req, res, next) => {
+  fetch('https://type.fit/api/quotes')
+    .then((response) => response.json())
+    .then((data) => {
+      const titlesArray = ['Ph.D.', 'M.D.', 'J.D.', 'Esq.', 'the Third', 'Scholar', 'Attorney at Law', 'Duchess of Cambridge', 'His Majesty', 'The Reverend', 'Viscount of Hereford', '7th Baron of Cromwell', 'Spiritual Leader', 'Life Coach, Inspirational Speaker', 'Frontend Master'];
+      const randomTitleNum = Math.floor(Math.random() * (titlesArray.length));
+      const randomNum = Math.floor(Math.random() * 1620);
+      res.locals.quotes = chooseAuthor(data[randomNum], titlesArray, randomTitleNum);
+    })
+    .then(next);
+};
+
 module.exports = apiController;

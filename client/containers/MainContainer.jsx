@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
   currentUser: state.userState.currentUser,
   currentImage: state.moodState.currentImage,
   imageResults: state.moodState.imageResults,
-  quote: state.userState.quote,
+  quote: state.moodState.quote,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,13 +32,10 @@ class MainContainer extends Component {
     this.onRegister = this.onRegister.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    this.onGetQuote = this.onGetQuote.bind(this);
-  }
-  componentDidMount() {
-    this.props.onGetQuote();
   }
   componentDidMount() {
     this.props.setBackgroundImage('sad');
+    this.props.getQuote();
   }
   onRegister(e) {
     e.preventDefault();
@@ -56,10 +53,6 @@ class MainContainer extends Component {
     e.preventDefault();
     this.props.logout();
   }
-  onGetQuote(e) {
-    e.preventDefault();
-    this.props.getQuote();
-  }
 
   render() {
     return (
@@ -68,7 +61,7 @@ class MainContainer extends Component {
         <Background currentImage={this.props.currentImage}/>
         <Route exact path="/user/register" render={() => <Register onRegister={ this.onRegister }/> } />
         <Route exact path="/user/login" render={() => <Login onLogin={ this.onLogin } />} />
-        <Route exact path="/" render={() => <Landing onChangeQuote={this.onChangeQuote} quoteRandom={ this.props.quoteRandom }/> } />
+        <Route exact path="/" render={() => <Landing quote={ this.props.quote }/> } />
         <Route exact path="/user/mood" component={MoodContainer} />
         <Footer />
       </Router>

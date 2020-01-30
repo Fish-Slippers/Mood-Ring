@@ -1,9 +1,8 @@
-import { REGISTER, LOGIN, LOGOUT, GET_QUOTE } from '../constants/actionTypes';
+import { REGISTER, LOGIN, LOGOUT } from '../constants/actionTypes';
 
 const initialState = {
   currentUser: '',
   loggedIn: false,
-  quote: '',
 };
 
 const userReducers = (state = initialState, action) => {
@@ -28,11 +27,6 @@ const userReducers = (state = initialState, action) => {
         ...state,
         currentUser: '',
         loggedIn: false,
-      };
-    case GET_QUOTE:
-      return {
-        ...state,
-        quote: action.payload,
       };
     default: return state;
   }
