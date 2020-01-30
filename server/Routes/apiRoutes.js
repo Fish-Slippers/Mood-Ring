@@ -7,4 +7,8 @@ router.post('/images', apiController.getImages, (req, res) => {
   return res.status(200).json(res.locals.images);
 });
 
+router.get('/quotes', apiController.getQuotes, (req, res) => {
+  return res.status(200).json(res.locals.quotes);
+});
+
 module.exports = router;

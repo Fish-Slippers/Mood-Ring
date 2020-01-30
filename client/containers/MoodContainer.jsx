@@ -50,12 +50,10 @@ font-size: 20px;
 }
 `;
 
-const mapStateToProps = (reduxState) => {
+const mapStateToProps = (state) => ({
   //used to bring in the pieces of state that the components on this page will use
-  return {
-    currentUser: reduxState.currentUser,
-  };
-};
+    currentUser: state.currentUser,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   sendMoodData: (username, date, mood) => dispatch(actions.sendMoodData(username, date, mood)),
@@ -78,30 +76,6 @@ class MoodContainer extends Component {
     const mood = e.target[0].value;
     const date = e.target[1].value;
     this.props.sendMoodData(username, date, mood);
-    // const value = document.getElementById('selector').value;
-
-    const user = {
-      username: this.props.username,
-      mood: mood,
-      date: date,
-    };
-
-    fetch('/user/mood', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          response: data.response
-        });
-      })
-      .catch((err) => {
-        console.log('Error', err);
-      });
   }
 
   render() {
